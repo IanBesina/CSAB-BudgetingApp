@@ -1,0 +1,43 @@
+<!doctype html>
+<head>
+  <meta name="author" content="Ian Besina">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Table Layout</title>
+  <!--more layout possibilities see here: http://www.w3schools.com/css/css_table.asp-->
+  <style type="text/css">
+   table       { border-collapse:collapse; }
+   table,th,td { border:1px solid green; }
+   th          { background-color:green; color:white; }
+  </style>
+</head>
+
+<body>
+  <div id="myTable"></div>
+  <script>
+    // get the table to display from the window.AppInventor object and split at new line
+    var urlArray = window.AppInventor.getWebViewString().split("\n");
+
+    var doc = document;
+    var fragment = doc.createDocumentFragment();
+
+    for(i=0;i<urlArray.length;i++){
+      var tr = doc.createElement("tr");
+      // split at comma
+      var rowArray = urlArray[i].split(",");
+
+      for(j=0;j<rowArray.length;j++){
+        if ( i == 0) { var td = doc.createElement("th"); }
+        else         { var td = doc.createElement("td"); }
+        td.innerHTML = rowArray[j];
+        tr.appendChild(td);
+        fragment.appendChild(tr);
+      }
+    }
+    var table = doc.createElement("table");
+    table.appendChild(fragment);
+    doc.getElementById("myTable").appendChild(table);
+  </script>
+</body>
+</html>
